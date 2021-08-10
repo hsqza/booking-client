@@ -45,6 +45,13 @@
         "tsx": "never"
       }
     ],
+    "no-param-reassign": [
+      2,
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["state"]
+      }
+    ],
     "no-shadow": 0,
     "@typescript-eslint/no-shadow": [2],
     "@typescript-eslint/explicit-module-boundary-types": 2,
