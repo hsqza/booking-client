@@ -30,7 +30,7 @@
   "rules": {
     "no-use-before-define": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/no-use-before-define": [2],
+    "@typescript-eslint/no-use-before-define": [0],
     "react/jsx-filename-extension": [
       1,
       {
@@ -55,6 +55,7 @@
     "no-shadow": 0,
     "@typescript-eslint/no-shadow": [2],
     "@typescript-eslint/explicit-module-boundary-types": 2,
+    "jsx-a11y/label-has-associated-control": 0,
     "react-hooks/rules-of-hooks": 2,
     "react-hooks/exhaustive-deps": 1,
     "import/prefer-default-export": 0,
