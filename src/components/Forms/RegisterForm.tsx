@@ -1,18 +1,17 @@
-import React, { FC, ChangeEventHandler, FormEvent } from 'react'
+import React, { FC } from 'react'
+import { FormProps } from './Form.interface'
 
-export interface UserData {
+export interface UserRegisterData {
   name: string
   email: string
   password: string
 }
 
-interface RegisterFormProps {
-  data: UserData
-  onUpdate: ChangeEventHandler<HTMLInputElement>
-  onSubmit: (e: FormEvent<HTMLFormElement>) => void
-}
-
-const RegisterForm: FC<RegisterFormProps> = ({ data, onUpdate, onSubmit }) => {
+const RegisterForm: FC<FormProps<UserRegisterData>> = ({
+  data,
+  onUpdate,
+  onSubmit,
+}) => {
   return (
     <form onSubmit={onSubmit}>
       <div className='form-group'>

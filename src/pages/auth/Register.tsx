@@ -1,8 +1,13 @@
-import React, { useState } from 'react'
-import { RegisterForm, UserData } from 'components'
+import React, { FC, useState } from 'react'
+import { RegisterForm, UserRegisterData } from 'components'
 import useForm from 'hooks/useForm'
+import { BookingAPI } from 'api/BookingAPI'
+import { toast } from 'react-toastify'
+import { convertObjectMessageErrorsToString } from 'utils/functions'
+import { RouteComponentProps } from 'react-router-dom'
+import { PATH_URL } from 'config/pathUrl'
 
-const Register = (): JSX.Element => {
+const Register: FC<RouteComponentProps> = ({ history }): JSX.Element => {
   const [initialData, setInitialData] = useState({
     name: '',
     email: '',
@@ -10,14 +15,26 @@ const Register = (): JSX.Element => {
   })
 
   const onSubmitForm = () => {
-    console.log('Send form ', user)
+    BookingAPI.registerUser(user)
+      .then(({ data }) => {
+        toast.success(data.msg)
+        history.push(PATH_URL.login)
+      })
+      .catch((e) => {
+        if (e.response.data?.error) {
+          const errMsg = convertObjectMessageErrorsToString(
+            e.response.data.error,
+          )
+          toast.error(errMsg)
+        }
+      })
   }
 
   const {
-    values: user,
+    data: user,
     onChange,
     onSubmit,
-  } = useForm<UserData>(onSubmitForm, initialData)
+  } = useForm<UserRegisterData>(onSubmitForm, initialData)
 
   return (
     <>
