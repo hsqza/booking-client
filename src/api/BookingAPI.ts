@@ -5,6 +5,8 @@ import { UserRegisterData, UserLoginData } from 'components'
 export class BookingAPI {
   static userInfo = async (): Promise<AxiosResponse> => axios.get('/user')
 
+  static logoutUser = async (): Promise<AxiosResponse> => axios.get('/logout')
+
   static registerUser = async (
     user: UserRegisterData,
   ): Promise<AxiosResponse> => axios.post('/register', user)
