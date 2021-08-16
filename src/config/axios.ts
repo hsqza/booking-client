@@ -8,4 +8,15 @@ const instance = axios.create({
   withCredentials: true,
 })
 
+// Add a response interceptor
+instance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response.status === 401) {
+      window.location.pathname = '/login'
+    }
+    return Promise.reject(error)
+  },
+)
+
 export default instance

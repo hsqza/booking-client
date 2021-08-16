@@ -1,9 +1,10 @@
 import axios from 'config/axios'
 import { AxiosResponse } from 'axios'
 import { UserRegisterData, UserLoginData } from 'components'
-import { PATH_URL } from 'config/pathUrl'
 
 export class BookingAPI {
+  static userInfo = async (): Promise<AxiosResponse> => axios.get('/user')
+
   static registerUser = async (
     user: UserRegisterData,
   ): Promise<AxiosResponse> => axios.post('/register', user)

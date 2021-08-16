@@ -4,10 +4,15 @@ import { LoginForm, UserLoginData } from 'components'
 import { BookingAPI } from 'api/BookingAPI'
 import useForm from 'hooks/useForm'
 import { convertObjectMessageErrorsToString } from 'utils/functions'
-import { PATH_URL } from 'config/pathUrl'
 import { toast } from 'react-toastify'
+import { setUser } from 'store/slice/authSlice'
+import { useAppDispatch } from 'store/hooks'
+import { User } from 'interface'
+import { PATH_URL } from 'config/pathUrl'
 
 const Register: FC<RouteComponentProps> = ({ history }): JSX.Element => {
+  const dispatch = useAppDispatch()
+
   const [initialData, setInitialData] = useState({
     email: '',
     password: '',
@@ -15,8 +20,11 @@ const Register: FC<RouteComponentProps> = ({ history }): JSX.Element => {
 
   const onSubmitForm = () => {
     BookingAPI.loginUser(user)
-      .then(({ data }) => {
-        toast.success(data.msg)
+      .then((res) => {
+        const user = res.data.user as User
+        dispatch(setUser(user))
+        toast.success(`Logged in ${user.email}`)
+        history.push(PATH_URL.home)
       })
       .catch((e) => {
         if (e.response.data?.error) {

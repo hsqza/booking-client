@@ -5,7 +5,7 @@ const Home = (): JSX.Element => {
   useEffect(() => {
     BookingAPI.showMessage('show-cookie')
       .then(({ data }) => console.log('SUCCESS ', data))
-      .catch((e) => console.log('ERROR ', e.response.data))
+      .catch((e) => console.log('ERROR ', e))
   }, [])
   return (
     <div className='container-fluid'>

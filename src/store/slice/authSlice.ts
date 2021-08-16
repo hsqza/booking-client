@@ -1,22 +1,9 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-
-export const isLoggedUser = createAsyncThunk<UserProps, number>(
-  'auth/isLoggedUser',
-  async (id) => {
-    const response = await fetch(
-      `https://jsonplaceholder.typicode.com/users/${id}/comments`,
-    )
-    const res: Array<UserProps> = await response.json()
-
-    const { email, user = 'User' } = res[0]
-
-    return { email, user }
-  },
-)
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface UserProps {
-  user: string
+  name: string
   email: string
+  id: string
 }
 
 interface UserState {
@@ -25,20 +12,24 @@ interface UserState {
 
 const initialState: UserState = {
   user: {
-    user: '',
+    name: '',
     email: '',
+    id: '',
   },
 }
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(isLoggedUser.fulfilled, (state, { payload }) => {
-      state.user = payload
-    })
+  reducers: {
+    setUser: (state, { payload }: PayloadAction<UserProps>) => {
+      state.user.email = payload.email
+      state.user.name = payload.name
+      state.user.id = payload.id
+    },
   },
 })
+
+export const { setUser } = authSlice.actions
 
 export default authSlice.reducer
